@@ -1,5 +1,4 @@
 //Number 1
-/*
 #include <iostream>
 #include "opencv2/opencv.hpp"
 using namespace cv;
@@ -17,34 +16,33 @@ int main()
    for (int i = 2; i < cnt; i++) {
       int* mx = stats.ptr<int>(max);
       int* mn = stats.ptr<int>(min);
-      int* p = stats.ptr<int>(i); //stats∞¥√º¿« i«‡¿« Ω√¿€¡÷º“∏¶ ∏Æ≈œ
+      int* p = stats.ptr<int>(i);
       if (p[2] * p[3] > mx[2] * mx[3]) max = i;
       if (p[2] * p[3] < mn[2] * mn[3]) min = i;
    }
    Mat dst;
    cvtColor(src, dst, COLOR_GRAY2BGR);
 
-   int* mxp = stats.ptr<int>(max); //stats∞¥√º¿« i«‡¿« Ω√¿€¡÷º“∏¶ ∏Æ≈œ
-   int* mnp = stats.ptr<int>(min); //stats∞¥√º¿« i«‡¿« Ω√¿€¡÷º“∏¶ ∏Æ≈œ
+   int* mxp = stats.ptr<int>(max);
+   int* mnp = stats.ptr<int>(min);
    rectangle(dst, Rect(mxp[0], mxp[1], mxp[2], mxp[3]), Scalar(0, 0, 255));
    rectangle(dst, Rect(mnp[0], mnp[1], mnp[2], mnp[3]), Scalar(255, 0, 0));
    double* mxpc = centroids.ptr<double>(max);
    double* mnpc = centroids.ptr<double>(min);
-   cout << "∏È¿˚¿Ã √÷¥Î¿Œ ∞¥√º¿« ∑π¿Ã∫Ì : " << max << endl;
-   cout << "π´∞‘¡ﬂΩ… : (x,y) : " << mxpc[0] << "\t" << mxpc[1] << endl;
+   cout << "Î©¥Ï†ÅÏù¥ ÏµúÎåÄÏù∏ Í∞ùÏ≤¥Ïùò Î†àÏù¥Î∏î : " << max << endl;
+   cout << "Î¨¥Í≤åÏ§ëÏã¨ : (x,y) : " << mxpc[0] << "\t" << mxpc[1] << endl;
 
-   cout << "∏È¿˚¿Ã √÷º“¿Œ ∞¥√º¿« ∑π¿Ã∫Ì : " << min << endl;
-   cout << "π´∞‘¡ﬂΩ… : (x,y) : " << mnpc[0] << "\t" << mnpc[1] << endl;
+   cout << "Î©¥Ï†ÅÏù¥ ÏµúÏÜåÏù∏ Í∞ùÏ≤¥Ïùò Î†àÏù¥Î∏î : " << min << endl;
+   cout << "Î¨¥Í≤åÏ§ëÏã¨ : (x,y) : " << mnpc[0] << "\t" << mnpc[1] << endl;
 
    imshow("src", src);
    imshow("dst", dst);
    waitKey();
    return 0;
 }
-*/
+
 
 //Number 2
-/*
 #include <iostream>
 #include "opencv2/opencv.hpp"
 using namespace cv;
@@ -77,10 +75,9 @@ int main()
    waitKey();
    return 0;
 }
-*/
+
 
 //Number 3
-/*
 #include <iostream>
 #include "opencv2/opencv.hpp"
 using namespace cv;
@@ -97,11 +94,11 @@ int main()
     int cnt = connectedComponentsWithStats(bin, labels, stats, centroids);
     for (int i = 1; i < cnt; i++) {
         double* cp = centroids.ptr<double>(i);
-        string str = to_string(i) + "π¯¬∞ π´∞‘¡ﬂΩ… : ";
+        string str = to_string(i) + "Î≤àÏß∏ Î¨¥Í≤åÏ§ëÏã¨ : ";
         cout << str << cp[0] << ", " << cp[1] << endl;
     }
 
-    cout << "ªÁøÎ¿⁄ ¡˜¡¢ ∞ËªÍ π´∞‘¡ﬂΩ…" << endl;
+    cout << "ÏÇ¨Ïö©Ïûê ÏßÅÏ†ë Í≥ÑÏÇ∞ Î¨¥Í≤åÏ§ëÏã¨" << endl;
     for (int i = 1; i < cnt; i++) {
         int* p = stats.ptr<int>(i);
         int count = 0;
@@ -115,57 +112,13 @@ int main()
                 }
             }
         }
-        cout << i << "π¯ ∞¥√º¿« π´∞‘¡ﬂΩ…:(" << xsum / count << ", " << ysum / count << ")" << endl;
+        cout << i << "Î≤à Í∞ùÏ≤¥Ïùò Î¨¥Í≤åÏ§ëÏã¨:(" << xsum / count << ", " << ysum / count << ")" << endl;
     }
     return 0;
 }
-*/
+
 
 //Numebr 4
-/*
-#include <iostream>
-#include "opencv2/opencv.hpp"
-using namespace cv;
-using namespace std;
-
-int main()
-{
-   Mat src = imread("C:\\Users\\Admin\\Desktop\\car.jpg");
-   if (src.empty()) { cerr << "Image load failed!" << endl; return -1; }
-   Mat bin;
-   threshold(src, bin, 0, 255, THRESH_BINARY_INV | THRESH_OTSU);
-   Mat labels, stats, centroids;
-   int cnt = connectedComponentsWithStats(bin, labels, stats, centroids);
-   int max = 1, min = 1;
-   for (int i = 2; i < cnt; i++) {
-      int* mx = stats.ptr<int>(max);
-      int* mn = stats.ptr<int>(min);
-      int* p = stats.ptr<int>(i); //stats∞¥√º¿« i«‡¿« Ω√¿€¡÷º“∏¶ ∏Æ≈œ
-      if (p[2] * p[3] > mx[2] * mx[3]) max = i;
-      if (p[2] * p[3] < mn[2] * mn[3]) min = i;
-   }
-   Mat dst;
-   cvtColor(src, dst, COLOR_GRAY2BGR);
-
-   int* mxp = stats.ptr<int>(max); //stats∞¥√º¿« i«‡¿« Ω√¿€¡÷º“∏¶ ∏Æ≈œ
-   int* mnp = stats.ptr<int>(min); //stats∞¥√º¿« i«‡¿« Ω√¿€¡÷º“∏¶ ∏Æ≈œ
-   rectangle(dst, Rect(mxp[0], mxp[1], mxp[2], mxp[3]), Scalar(0, 0, 255));
-   rectangle(dst, Rect(mnp[0], mnp[1], mnp[2], mnp[3]), Scalar(255, 0, 0));
-   double* mxpc = centroids.ptr<double>(max);
-   double* mnpc = centroids.ptr<double>(min);
-   cout << "∏È¿˚¿Ã √÷¥Î¿Œ ∞¥√º¿« ∑π¿Ã∫Ì : " << max << endl;
-   cout << "π´∞‘¡ﬂΩ… : (x,y) : " << mxpc[0] << "\t" << mxpc[1] << endl;
-
-   cout << "∏È¿˚¿Ã √÷º“¿Œ ∞¥√º¿« ∑π¿Ã∫Ì : " << min << endl;
-   cout << "π´∞‘¡ﬂΩ… : (x,y) : " << mnpc[0] << "\t" << mnpc[1] << endl;
-
-   imshow("src", src);
-   imshow("dst", dst);
-   waitKey();
-   return 0;
-}
-*/
-
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
@@ -180,10 +133,10 @@ int main(void) {
     Mat br, sobel, bin, mopo;
     blur(src, br, Size(5, 5));
     Sobel(br, sobel, -1, 1, 0);
-    imshow("x√‡ πÊ«‚ º“∫ß", sobel);
+    imshow("xÏ∂ï Î∞©Ìñ• ÏÜåÎ≤®", sobel);
     waitKey(2000);
     threshold(sobel, bin, 150, 255, CV_8U);
-    imshow("¿Ã¡¯»≠ µ» øµªÛ", src);
+    imshow("Ïù¥ÏßÑÌôî Îêú ÏòÅÏÉÅ", src);
     waitKey(2000);
     Mat M = getStructuringElement(MORPH_RECT, Size(50, 5));
     morphologyEx(bin, mopo, MORPH_CLOSE, M);
@@ -193,10 +146,10 @@ int main(void) {
     int max = 1;
     for (int i = 2; i < cnt; i++) {
         int* mx = stats.ptr<int>(max);
-        int* p = stats.ptr<int>(i); //stats∞¥√º¿« i«‡¿« Ω√¿€¡÷º“∏¶ ∏Æ≈œ
+        int* p = stats.ptr<int>(i); 
         if (p[2] * p[3] > mx[2] * mx[3]) max = i;
     }
-    int* p = stats.ptr<int>(max); //stats∞¥√º¿« i«‡¿« Ω√¿€¡÷º“∏¶ ∏Æ≈œ
+    int* p = stats.ptr<int>(max); 
     cvtColor(src, src, COLOR_GRAY2BGR);
     rectangle(src, Rect(p[0], p[1], p[2], p[3]), Scalar(0, 0, 255), 2);
     imshow("src", src);
